@@ -1,6 +1,10 @@
+// cpplibstring: библиотека содержащая функционал строк
+// License: © Mak
+
 #ifndef __STRING__
 #define __STRING__
 
+#include "macros.h"
 #include <cstring>
 #define __debug_cppString__
 
@@ -40,6 +44,30 @@ public:
         __insert(_str_cls.__str_ptr, 0, __length);
     }
     
+    // Присваивание
+    String& operator= (charset _str_ptr)
+    {
+        if (!__check_string(__str_ptr, _str_ptr))
+        {
+            __length = std::strlen(_str_ptr);
+            __str_ptr = new char(__length);
+            __insert(_str_ptr, 0, __length);
+        }
+        return *this;
+    }
+    
+    String& operator= (const String& _str_cls)
+    {
+        if (!__check_string(__str_ptr, _str_cls.__str_ptr))
+        {
+            __length = std::strlen(_str_cls.__str_ptr);
+            __str_ptr = new char(__length);
+            __insert(_str_cls.__str_ptr, 0, __length);
+        }
+        return *this;
+    }
+    
+    cpplibMethod("APPEND");
     // APPEND. Добавляет в строку новый ряд символов
     String& append(charset _str_ptr)
     {
@@ -109,6 +137,7 @@ public:
         return __str_ptr[index];
     }
     
+    cpplibMethod("AT");
     // AT. Аналог оператора []
     char& at(int index)
     {
@@ -163,6 +192,7 @@ private:
     
 public:
 
+    cpplibMethod("SEARCH");
     // Вернёт совпадение: есть ли набор символов в строке
     bool search(charset _string)
     {
@@ -174,7 +204,8 @@ public:
         return __search(_str_cls.__str_ptr, 0).is_try;
     }
     
-    // get: __lengh. Вернет размер строки
+    cpplibProperty("LENGTH");
+    // get: __length. Вернет размер строки
     int const& length = __length;
     
 private:
