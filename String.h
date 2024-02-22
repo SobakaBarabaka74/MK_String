@@ -30,15 +30,15 @@ public:
     
 #endif
     
-    String() : _str_ptr(new char(0)), _length(0) {  }
+    explicit String() : _str_ptr(new char(0)), _length(0) {  }
     
-    String(charset _str_ptr) : _length(std::strlen(_str_ptr)),
+    explicit String(charset _str_ptr) : _length(std::strlen(_str_ptr)),
                              _str_ptr(new char(_length))
     {
         _insert(_str_ptr, 0, _length);
     }
     
-    String(const String& _str_cls) : _length(std::strlen(_str_cls._str_ptr)),
+    explicit String(const String& _str_cls) : _length(std::strlen(_str_cls._str_ptr)),
                              _str_ptr(new char(_length))
     {
         _insert(_str_cls._str_ptr, 0, _length);
